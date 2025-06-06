@@ -1,3 +1,4 @@
 export const MainView = () => {
-  return <>asd</>;
+  
+  return <></>;
 };
