@@ -4,7 +4,11 @@ export const NotesContext = createContext();
 
 export const NotesProvider = ({ children }) => {
   const initialState = {
-    notes: [],
+    notes: [
+      { id: 1, title: "asd", text: "xd" },
+      { id: 2, title: "hola0", text: "owo" },
+      { id: 3, title: "buenas", text: "asd" },
+    ],
     inputTitle: "",
     inputText: "",
   };

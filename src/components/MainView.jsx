@@ -1,4 +1,6 @@
 export const MainView = () => {
-  
-  return <></>;
-};
+  return (
+    <div>
+    </div>
+  );
+}
