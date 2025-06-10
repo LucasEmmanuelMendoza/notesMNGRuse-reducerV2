@@ -1,7 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "./Button";
+import { NotesContext } from "../context/NotesContext";
+
 export const Note = (props) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { state, dispatch } = useContext(NotesContext);
+
+  const handleDelete = () => {
+    dispatch({
+      type: "DELETE_NOTE",
+      value: props.id,
+    });
+  };
+
+  const handleEdit = () => {
+    dispatch({
+      type: "SET_EDIT_NOTE",
+      value: props.id,
+    });
+  };
 
   return (
     <div
@@ -16,8 +33,16 @@ export const Note = (props) => {
 
       {isHovered ? (
         <div className="">
-          <Button content="✏️" className="btn btn-warning" />
-          <Button content="❌" className="btn btn-danger" />
+          <Button
+            content="✏️"
+            className="btn btn-warning"
+            handleClick={handleEdit}
+          />
+          <Button
+            content="❌"
+            className="btn btn-danger"
+            handleClick={handleDelete}
+          />
         </div>
       ) : (
         <></>

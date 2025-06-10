@@ -3,19 +3,31 @@ import { NotesContainer } from "./NotesContainer.jsx";
 import { InputNote } from "./InputNote.jsx";
 import { useContext } from "react";
 import { NotesContext } from "../context/NotesContext.js";
+import { Button } from "./Button.jsx";
 
 export const MainView = () => {
   const { state, dispatch } = useContext(NotesContext);
+
   return (
-    <>
+    <div className="border border-white mainView">
+      <h1>Notes Manager</h1>
       <Row>
-        <Col sm={5}>
+        <Col sm={7}>
           <InputNote />
         </Col>
-        <Col sm={7}>
-          <NotesContainer notes={state.notes} />
+        <Col sm={5}>
+          <Button
+            content="+"
+            className=""
+            handleClick={() =>
+              dispatch({
+                type: "SET_ADD_NOTE",
+              })
+            }
+          />
+          <NotesContainer notes={state.notes} className="me-2 notesContainer" />
         </Col>
       </Row>
-    </>
+    </div>
   );
 };

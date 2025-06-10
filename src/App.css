@@ -12,6 +12,13 @@ body {
   color: rgb(155, 137, 137) !important;
 }
 
-.note {
-  height: 4rem;
+.mainView {
+  width: 80vh;
+  height: 31rem;
+}
+
+.notesContainer {
+  width: 100%;
+  scrollbar-gutter: stable;
+  overflow-y: auto;
 }

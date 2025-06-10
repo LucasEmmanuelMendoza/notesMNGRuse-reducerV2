@@ -2,17 +2,93 @@ import { useReducer } from "react";
 import { NotesContext } from "./NotesContext";
 
 const initialState = {
+  id: 4,
   notes: [
     { id: 1, title: "asd", text: "xd" },
     { id: 2, title: "hola0", text: "owo" },
-    { id: 3, title: "buenas", text: "asd" },
+    { id: 3, title: "hola0", text: "owo" },
   ],
   inputTitle: "",
   inputText: "",
+  idEditingNote: null,
+  idSelectedNote: null
 };
 
 const reducer = (state, action) => {
-  return state;
+  switch (action.type) {
+    case "DELETE_NOTE":
+      //action.value = id
+      const modNotes1 = state.notes.filter((note) => note.id != action.value);
+      if (state.idEditingNote === action.value) {
+        return {
+          ...state,
+          inputText: "",
+          inputTitle: "",
+          idEditingNote: null,
+          notes: modNotes1,
+        };
+      } else {
+        return {
+          ...state,
+          notes: modNotes1,
+        };
+      }
+
+    case "ADD_NOTE":
+      return {
+        ...state,
+        id: state.id++,
+        inputText: "",
+        inputTitle: "",
+        notes: [
+          ...state.notes,
+          {
+            id: state.id,
+            title: state.inputTitle,
+            text: state.inputText,
+          },
+        ],
+      };
+
+    case "UPDATE_FIELD":
+      return {
+        ...state,
+        [action.field]: action.value,
+      };
+    case "SET_EDIT_NOTE":
+      const editNote = state.notes.find((note) => note.id == action.value);
+      return {
+        ...state,
+        idEditingNote: action.value,
+        inputTitle: editNote.title,
+        inputText: editNote.text,
+      };
+    case "SAVE_NOTE":
+      const modNotes = state.notes.map((note) => {
+        if (note.id === state.idEditingNote) {
+          return {
+            ...note,
+            title: state.inputTitle,
+            text: state.inputText,
+          };
+        } else {
+          return note;
+        }
+      });
+      return {
+        ...state,
+        notes: modNotes,
+      };
+    case "SET_ADD_NOTE":
+      return {
+        ...state,
+        idEditingNote: null,
+        inputText: "",
+        inputTitle: "",
+      };
+    default:
+      return state;
+  }
 };
 
 export const NotesProvider = ({ children }) => {
