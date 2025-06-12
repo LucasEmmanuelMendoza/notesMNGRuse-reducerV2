@@ -4,14 +4,14 @@ import { NotesContext } from "./NotesContext";
 const initialState = {
   id: 4,
   notes: [
-    { id: 1, title: "asd", text: "xd" },
-    { id: 2, title: "hola0", text: "owo" },
-    { id: 3, title: "hola0", text: "owo" },
+    { id: 1, title: "asd", text: "aaa" },
+    { id: 2, title: "hola0", text: "asdsad" },
+    { id: 3, title: "hola1", text: "123" },
   ],
   inputTitle: "",
   inputText: "",
   idEditingNote: null,
-  idSelectedNote: null
+  idSelectedNote: null,
 };
 
 const reducer = (state, action) => {
@@ -59,6 +59,7 @@ const reducer = (state, action) => {
       const editNote = state.notes.find((note) => note.id == action.value);
       return {
         ...state,
+        idSelectedNote: null,
         idEditingNote: action.value,
         inputTitle: editNote.title,
         inputText: editNote.text,
@@ -82,6 +83,15 @@ const reducer = (state, action) => {
     case "SET_ADD_NOTE":
       return {
         ...state,
+        idEditingNote: null,
+        idSelectedNote: null,
+        inputText: "",
+        inputTitle: "",
+      };
+    case "SET_SELECTED_NOTE":
+      return {
+        ...state,
+        idSelectedNote: action.value,
         idEditingNote: null,
         inputText: "",
         inputTitle: "",

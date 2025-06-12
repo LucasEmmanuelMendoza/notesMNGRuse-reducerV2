@@ -4,6 +4,7 @@ import { InputNote } from "./InputNote.jsx";
 import { useContext } from "react";
 import { NotesContext } from "../context/NotesContext.js";
 import { Button } from "./Button.jsx";
+import { NoteView } from "./NoteView.jsx";
 
 export const MainView = () => {
   const { state, dispatch } = useContext(NotesContext);
@@ -13,8 +14,13 @@ export const MainView = () => {
       <h1>Notes Manager</h1>
       <Row>
         <Col sm={7}>
-          <InputNote />
+          {state.idSelectedNote ? (
+            <NoteView id={state.idSelectedNote} />
+          ) : (
+            <InputNote />
+          )}
         </Col>
+
         <Col sm={5}>
           <Button
             content="+"

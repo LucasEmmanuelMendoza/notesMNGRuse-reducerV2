@@ -20,13 +20,20 @@ export const Note = (props) => {
     });
   };
 
+  const handleSelectedNote = () => {
+    dispatch({
+      type: "SET_SELECTED_NOTE",
+      value: props.id,
+    });
+  };
+
   return (
     <div
       className="note p-3 m-1 d-flex justify-content-between border border-white"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="d-flex">
+      <div className="d-flex" onClick={() => handleSelectedNote()}>
         <h3>{props.title}</h3>
         <p>{props.text}</p>
       </div>
